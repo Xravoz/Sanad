@@ -1,411 +1,549 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>سند — منصة مشاركة الوظائف</title>
-<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #f3f6fa;
-  --primary: #2563eb;
-  --accent: #60a5fa;
-  --muted: #64748b;
-  --card: #fff;
-  --shadow: 0 8px 32px rgba(37,99,235,0.08);
-  --radius: 22px;
-  --gradient: linear-gradient(120deg, #2563eb 0%, #60a5fa 100%);
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: "Alexandria", Segoe UI, Tahoma, Helvetica, Arial, sans-serif;
-  background: var(--bg);
-  color: #1e293b;
-  min-height: 100vh;
-}
-.landing-header {
-  background: var(--gradient);
-  color: #fff;
-  padding: 56px 0 36px 0;
-  text-align: center;
-  box-shadow: var(--shadow);
-  border-radius: 0 0 var(--radius) var(--radius);
-  position: relative;
-}
-.logo-main {
-  width: 80px; height: 80px;
-  background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
-  border-radius: 24px;
-  display: grid; place-items: center;
-  font-size: 3rem; font-weight: 700;
-  margin: 0 auto 20px auto;
-  box-shadow: 0 6px 24px rgba(37,99,235,0.13);
-  border: 3px solid #fff;
-  color: var(--primary);
-}
-.landing-title {
-  font-size: 2.3rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-  letter-spacing: 0.04em;
-}
-.landing-subtitle {
-  font-size: 1.18rem;
-  color: #e0e7ef;
-  margin-bottom: 28px;
-  font-weight: 400;
-}
-.landing-actions {
-  display: flex; gap: 20px; justify-content: center; margin-top: 22px;
-}
-.btn {
-  padding: 15px 32px;
-  border-radius: 18px;
-  border: none;
-  font-size: 1.15rem;
-  font-family: "Alexandria", Segoe UI, Tahoma, Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 2px 12px rgba(37,99,235,0.07);
-  transition: transform .13s, box-shadow .13s, background .13s;
-  background: var(--primary);
-  color: #fff;
-  letter-spacing: 0.03em;
-}
-.btn.ghost {
-  background: #fff;
-  color: var(--primary);
-  border: 2px solid var(--accent);
-}
-.btn:hover { transform: scale(1.05); background: var(--accent); }
-.section-card {
-  background: var(--card);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 36px 28px;
-  max-width: 540px;
-  margin: 38px auto;
-  transition: box-shadow .18s;
-}
-.section-card:hover {
-  box-shadow: 0 12px 40px rgba(37,99,235,0.13);
-}
-.section-title {
-  font-size: 1.45rem;
-  font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 14px;
-}
-.section-desc {
-  font-size: 1.08rem;
-  color: var(--muted);
-  margin-bottom: 22px;
-}
-.form-group { margin-bottom: 20px; }
-label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 7px;
-  color: var(--primary);
-  font-size: 1.05rem;
-}
-input, textarea {
-  width: 100%;
-  padding: 13px 18px;
-  border-radius: 14px;
-  border: 1.7px solid #e0e7ef;
-  background: #f8fafc;
-  font-size: 1.09rem;
-  font-family: "Alexandria", Segoe UI, Tahoma, Helvetica, Arial, sans-serif;
-  color: var(--primary);
-  box-shadow: 0 2px 8px rgba(37,99,235,0.04);
-  transition: border-color .18s, box-shadow .18s;
-  outline: none;
-  resize: vertical;
-}
-input:focus, textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 4px 16px rgba(37,99,235,0.10);
-  background: #fff;
-}
-.jobs-list { margin-top: 36px; }
-.job-card {
-  background: linear-gradient(90deg, #f8fafc 80%, #e0e7ef 100%);
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(37,99,235,0.04);
-  padding: 20px 18px;
-  margin-bottom: 20px;
-  display: flex; align-items: flex-start; gap: 18px;
-  border: 1px solid #e0e7ef;
-  transition: box-shadow .15s;
-}
-.job-card:hover {
-  box-shadow: 0 8px 24px rgba(37,99,235,0.10);
-}
-.avatar-icon {
-  width: 58px; height: 58px;
-  border-radius: 16px;
-  background: var(--accent);
-  display: grid; place-items: center;
-  color: #fff;
-  font-weight: 700;
-  font-size: 1.7rem;
-  border: 2px solid #fff;
-  box-shadow: 0 2px 8px rgba(37,99,235,0.07);
-}
-.job-info { flex: 1; }
-.job-title {
-  font-size: 1.13rem;
-  font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 5px;
-}
-.job-meta {
-  font-size: 0.98rem;
-  color: var(--muted);
-  margin-bottom: 7px;
-}
-.job-actions { display: flex; gap: 10px; margin-top: 10px; }
-.pill {
-  padding: 7px 12px;
-  border-radius: 999px;
-  border: 1px solid #e0e7ef;
-  background: #fff;
-  font-weight: 600;
-  font-size: 0.92rem;
-  color: var(--primary);
-  margin-left: 8px;
-  box-shadow: 0 1px 4px rgba(37,99,235,0.04);
-}
-input[type="text"]#searchInput {
-  margin-bottom: 20px;
-  border-radius: 14px;
-  border: 1.5px solid #e0e7ef;
-  background: #f8fafc;
-  font-size: 1.09rem;
-  padding: 13px 18px;
-  color: var(--primary);
-  box-shadow: 0 2px 8px rgba(37,99,235,0.04);
-  transition: border-color .18s, box-shadow .18s;
-}
-input[type="text"]#searchInput:focus {
-  border-color: var(--accent);
-  box-shadow: 0 4px 16px rgba(37,99,235,0.10);
-  background: #fff;
-}
-.toast-wrap {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-}
-.toast {
-  background: var(--primary);
-  color: #fff;
-  padding: 12px 24px;
-  border-radius: 14px;
-  margin-top: 8px;
-  font-size: 1.08rem;
-  box-shadow: 0 2px 12px rgba(37,99,235,0.13);
-  opacity: 0;
-  transition: opacity .3s, transform .3s;
-}
-@media (max-width: 700px) {
-  .landing-header { padding: 32px 0 18px 0; }
-  .logo-main { width: 56px; height: 56px; font-size: 2rem; }
-  .landing-title { font-size: 1.3rem; }
-  .section-card { padding: 16px 6px; }
-  .job-card { flex-direction: column; align-items: stretch; }
-}
-</style>
-</head>
-<body>
-  <div class="landing-header">
-    <div class="logo-main">س</div>
-    <div class="landing-title">سند — منصة مشاركة الوظائف</div>
-    <div class="landing-subtitle">انشر أو ابحث عن فرص العمل بسهولة وبدون تسجيل</div>
-    <div class="landing-actions">
-      <a class="btn ghost" href="#jobs">تصفح الوظائف</a>
-      <a class="btn" href="#add">أضف وظيفة جديدة</a>
-    </div>
-  </div>
-
-  <div class="section-card" id="add">
-    <div class="section-title">أضف وظيفة جديدة</div>
-    <div class="section-desc">يمكن لأي شخص النشر، الوظائف تنتهي تلقائيًا بعد المدة المحددة.</div>
-    <form id="jobForm">
-      <div class="form-group">
-        <label for="title">عنوان الوظيفة</label>
-        <input id="title" type="text" placeholder="مثال: مدرس لغة إنجليزية" required>
-      </div>
-      <div class="form-group">
-        <label for="description">وصف الوظيفة</label>
-        <textarea id="description" placeholder="وصف مختصر للوظيفة، الشروط، وساعات العمل..." required></textarea>
-      </div>
-      <div class="form-group">
-        <label for="location">الموقع (اختياري)</label>
-        <input id="location" type="text" placeholder="المدينة أو المنطقة">
-      </div>
-      <div class="form-group">
-        <label for="expiry">مدة (أيام)</label>
-        <input id="expiry" type="number" min="1" value="2">
-      </div>
-      <div class="form-group">
-        <label for="contact">بيانات التواصل (هاتف أو إيميل)</label>
-        <input id="contact" type="text" placeholder="مثال: 010xxxxxxxx أو email@example.com" required>
-      </div>
-      <div style="display:flex;gap:10px;">
-        <button type="submit" class="btn">نشر الوظيفة</button>
-        <button type="button" id="clearBtn" class="btn ghost">مسح الحقول</button>
-      </div>
-    </form>
-  </div>
-
-  <div class="section-card jobs-list" id="jobs">
-    <div class="section-title">الوظائف المتاحة</div>
-    <input id="searchInput" type="text" placeholder="ابحث بالعنوان، الوصف أو الموقع">
-    <div id="jobsList"></div>
-    <div id="empty" style="display:none;text-align:center;color:var(--muted);margin-top:18px;">لا توجد وظائف حالياً — كن أول من ينشر!</div>
-  </div>
-
-  <div class="toast-wrap" id="toasts" aria-live="polite"></div>
-
-  <!-- Supabase client -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <script>
-    const SUPABASE_URL = "https://cbjfaewyzdzvpnntovgg.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNiamZhZXd5emR6dnBubnRvdmdnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3MzMxMjYsImV4cCI6MjA3MDMwOTEyNn0.f8LrmEPyR1pq7gib75mqJjSJHyFO0Zmvq_RZTIBd7aU";
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    const jobForm = document.getElementById('jobForm');
-    const jobsList = document.getElementById('jobsList');
-    const emptyEl = document.getElementById('empty');
-    const searchInput = document.getElementById('searchInput');
-    const clearBtn = document.getElementById('clearBtn');
-    const toasts = document.getElementById('toasts');
-
-    function showToast(text, timeout = 3500){
-      const t = document.createElement('div');
-      t.className = 'toast';
-      t.textContent = text;
-      toasts.appendChild(t);
-      setTimeout(()=> t.style.opacity = '1', 20);
-      setTimeout(()=> { t.style.transform = 'translateY(6px)'; t.style.opacity = '0'; }, timeout - 350);
-      setTimeout(()=> t.remove(), timeout);
-    }
-    function escapeHtml(s){ if(!s) return ''; return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('\"','&quot;').replaceAll("'",'&#39;'); }
-    function remainingText(expires_at){
-      const now = new Date();
-      const exp = new Date(expires_at);
-      const diff = exp - now;
-      if(diff <= 0) return 'انتهت';
-      const days = Math.floor(diff / (1000*60*60*24));
-      const hours = Math.floor((diff / (1000*60*60)) % 24);
-      if(days > 0) return `متبقي ${days} يوم${days>1?'ات':''} و ${hours} ساعة`;
-      if(hours > 0) return `متبقي ${hours} ساعة`;
-      const mins = Math.ceil(diff / (1000*60));
-      return `متبقي ${mins} دقيقة`;
-    }
-    async function loadJobs(keyword = ''){
-      jobsList.innerHTML = '';
-      emptyEl.style.display = 'none';
-      let { data, error } = await supabase
-        .from('jobs')
-        .select('*')
-        .gt('expires_at', new Date().toISOString())
-        .order('created_at',{ascending:false});
-      if(error){ console.error(error); showToast('حدث خطأ أثناء جلب الوظائف'); return; }
-      let list = data || [];
-      const q = (keyword || '').trim().toLowerCase();
-      if(q){
-        list = list.filter(j => (
-          (j.title||'').toLowerCase().includes(q) ||
-          (j.description||'').toLowerCase().includes(q) ||
-          (j.location||'').toLowerCase().includes(q)
-        ));
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>سند — منصة مشاركة الوظائف</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f3f6fa;
+        --primary: #2563eb;
+        --accent: #60a5fa;
+        --muted: #64748b;
+        --card: #fff;
+        --shadow: 0 8px 32px rgba(37, 99, 235, 0.08);
+        --radius: 22px;
+        --gradient: linear-gradient(120deg, #2563eb 0%, #60a5fa 100%);
       }
-      if(!list.length){
-        emptyEl.style.display = 'block';
-        return;
+      * {
+        box-sizing: border-box;
       }
-      list.forEach(job => {
-        const container = document.createElement('div'); container.className = 'job-card';
-        const avatar = document.createElement('div'); avatar.className = 'avatar-icon';
-        avatar.textContent = (job.title||'').slice(0,1);
-        const info = document.createElement('div'); info.className = 'job-info';
-        const title = document.createElement('div'); title.className = 'job-title'; title.innerHTML = escapeHtml(job.title || '');
-        const desc = document.createElement('div'); desc.className = 'job-meta'; desc.innerHTML = escapeHtml(job.description || '');
-        const metaLine = document.createElement('div'); metaLine.className = 'job-meta';
-        const loc = job.location ? `<span class="pill">📍 ${escapeHtml(job.location)}</span>` : '';
-        const remain = `<span style="margin-left:8px;color:var(--muted)">${escapeHtml(remainingText(job.expires_at))}</span>`;
-        metaLine.innerHTML = `${loc} ${remain}`;
-        const contact = document.createElement('div'); contact.className = 'job-actions';
-        const contactVal = (job.contact || '').trim();
-        if(contactVal){
-          if(contactVal.includes('@')){
-            const mail = document.createElement('a');
-            mail.className = 'btn ghost'; mail.href = `mailto:${encodeURIComponent(contactVal)}`; mail.textContent = 'راسل عبر الإيميل';
-            contact.appendChild(mail);
-          } else {
-            const tel = document.createElement('a');
-            tel.className = 'btn ghost'; tel.href = `tel:${encodeURIComponent(contactVal)}`; tel.textContent = 'اتصل مباشرة';
-            contact.appendChild(tel);
-          }
+      body {
+        margin: 0;
+        font-family: "Alexandria", Segoe UI, Tahoma, Helvetica, Arial,
+          sans-serif;
+        background: var(--bg);
+        color: #1e293b;
+        min-height: 100vh;
+      }
+      .landing-header {
+        background: var(--gradient);
+        color: #fff;
+        padding: 56px 0 36px 0;
+        text-align: center;
+        box-shadow: var(--shadow);
+        border-radius: 0 0 var(--radius) var(--radius);
+        position: relative;
+      }
+      .logo-main {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+        border-radius: 24px;
+        display: grid;
+        place-items: center;
+        font-size: 3rem;
+        font-weight: 700;
+        margin: 0 auto 20px auto;
+        box-shadow: 0 6px 24px rgba(37, 99, 235, 0.13);
+        border: 3px solid #fff;
+        color: var(--primary);
+      }
+      .landing-title {
+        font-size: 2.3rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+        letter-spacing: 0.04em;
+      }
+      .landing-subtitle {
+        font-size: 1.18rem;
+        color: #e0e7ef;
+        margin-bottom: 28px;
+        font-weight: 400;
+      }
+      .landing-actions {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 22px;
+      }
+      .btn {
+        padding: 15px 32px;
+        border-radius: 18px;
+        border: none;
+        font-size: 1.15rem;
+        font-family: "Alexandria", Segoe UI, Tahoma, Helvetica, Arial,
+          sans-serif;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 2px 12px rgba(37, 99, 235, 0.07);
+        transition: transform 0.13s, box-shadow 0.13s, background 0.13s;
+        background: var(--primary);
+        color: #fff;
+        letter-spacing: 0.03em;
+      }
+      .btn.ghost {
+        background: #fff;
+        color: var(--primary);
+        border: 2px solid var(--accent);
+      }
+      .btn:hover {
+        transform: scale(1.05);
+        background: var(--accent);
+      }
+      .section-card {
+        background: var(--card);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 36px 28px;
+        max-width: 540px;
+        margin: 38px auto;
+        transition: box-shadow 0.18s;
+      }
+      .section-card:hover {
+        box-shadow: 0 12px 40px rgba(37, 99, 235, 0.13);
+      }
+      .section-title {
+        font-size: 1.45rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 14px;
+      }
+      .section-desc {
+        font-size: 1.08rem;
+        color: var(--muted);
+        margin-bottom: 22px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 7px;
+        color: var(--primary);
+        font-size: 1.05rem;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 13px 18px;
+        border-radius: 14px;
+        border: 1.7px solid #e0e7ef;
+        background: #f8fafc;
+        font-size: 1.09rem;
+        font-family: "Alexandria", Segoe UI, Tahoma, Helvetica, Arial,
+          sans-serif;
+        color: var(--primary);
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.04);
+        transition: border-color 0.18s, box-shadow 0.18s;
+        outline: none;
+        resize: vertical;
+      }
+      input:focus,
+      textarea:focus {
+        border-color: var(--accent);
+        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.1);
+        background: #fff;
+      }
+      .jobs-list {
+        margin-top: 36px;
+      }
+      .job-card {
+        background: linear-gradient(90deg, #f8fafc 80%, #e0e7ef 100%);
+        border-radius: 16px;
+        box-shadow: 0 2px 12px rgba(37, 99, 235, 0.04);
+        padding: 20px 18px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: flex-start;
+        gap: 18px;
+        border: 1px solid #e0e7ef;
+        transition: box-shadow 0.15s;
+      }
+      .job-card:hover {
+        box-shadow: 0 8px 24px rgba(37, 99, 235, 0.1);
+      }
+      .avatar-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 16px;
+        background: var(--accent);
+        display: grid;
+        place-items: center;
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.7rem;
+        border: 2px solid #fff;
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.07);
+      }
+      .job-info {
+        flex: 1;
+      }
+      .job-title {
+        font-size: 1.13rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 5px;
+      }
+      .job-meta {
+        font-size: 0.98rem;
+        color: var(--muted);
+        margin-bottom: 7px;
+      }
+      .job-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .pill {
+        padding: 7px 12px;
+        border-radius: 999px;
+        border: 1px solid #e0e7ef;
+        background: #fff;
+        font-weight: 600;
+        font-size: 0.92rem;
+        color: var(--primary);
+        margin-left: 8px;
+        box-shadow: 0 1px 4px rgba(37, 99, 235, 0.04);
+      }
+      input[type="text"]#searchInput {
+        margin-bottom: 20px;
+        border-radius: 14px;
+        border: 1.5px solid #e0e7ef;
+        background: #f8fafc;
+        font-size: 1.09rem;
+        padding: 13px 18px;
+        color: var(--primary);
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.04);
+        transition: border-color 0.18s, box-shadow 0.18s;
+      }
+      input[type="text"]#searchInput:focus {
+        border-color: var(--accent);
+        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.1);
+        background: #fff;
+      }
+      .toast-wrap {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;
+      }
+      .toast {
+        background: var(--primary);
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 14px;
+        margin-top: 8px;
+        font-size: 1.08rem;
+        box-shadow: 0 2px 12px rgba(37, 99, 235, 0.13);
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.3s;
+      }
+      @media (max-width: 700px) {
+        .landing-header {
+          padding: 32px 0 18px 0;
         }
-        info.appendChild(title);
-        info.appendChild(desc);
-        info.appendChild(metaLine);
-        info.appendChild(contact);
-        container.appendChild(avatar); container.appendChild(info);
-        jobsList.appendChild(container);
-      });
-    }
-    jobForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const title = document.getElementById('title').value.trim();
-      const description = document.getElementById('description').value.trim();
-      const location = document.getElementById('location').value.trim() || null;
-      const contact = document.getElementById('contact').value.trim();
-      let days = parseInt(document.getElementById('expiry').value, 10); if(!days || days < 1) days = 2;
-      if(!title || !description || !contact){ showToast('من فضلك املأ الحقول المطلوبة'); return; }
-      const expires_at = new Date(); expires_at.setDate(expires_at.getDate() + days);
-      const { error } = await supabase
-        .from('jobs')
-        .insert([{ title, description, location, contact, expires_at }]);
-      if(error){ console.error(error); showToast('تعذر نشر الوظيفة'); return; }
-      showToast('تم نشر الوظيفة بنجاح ✅');
-      jobForm.reset(); document.getElementById('expiry').value = 2;
-      await loadJobs();
-      location.hash = '#jobs';
-    });
-    clearBtn.addEventListener('click', () => { jobForm.reset(); document.getElementById('expiry').value = 2; showToast('الحقول تم مسحها'); });
-    let searchTimer = null;
-    searchInput.addEventListener('input', (e) => {
-      clearTimeout(searchTimer);
-      searchTimer = setTimeout(()=> loadJobs(e.target.value), 320);
-    });
-    (async function init(){
-      await loadJobs();
-      try{
-        supabase.channel('jobs-ch')
-          .on('postgres_changes', { event: '*', schema: 'public', table: 'jobs' }, payload => {
-            loadJobs(searchInput.value || '');
-          }).subscribe();
-      }catch(e){ /* ignore */ }
-    })();
-  </script>
-
-  <footer style="margin:40px auto 0 auto; text-align:center; color:#64748b; font-size:1rem; font-family:'Alexandria',sans-serif;">
-    <div style="padding:18px 0;">
-      تم تطوير الموقع بواسطة <b style="color:#2563eb;"> محمد خاطر</b> &mdash; جميع الحقوق محفوظة &copy; 2025
-      <br>
-      <a href="https://www.facebook.com/Xravoz" style="color:#60a5fa; text-decoration:none; margin-right:8px;">تواصل مع المطور</a>
+        .logo-main {
+          width: 56px;
+          height: 56px;
+          font-size: 2rem;
+        }
+        .landing-title {
+          font-size: 1.3rem;
+        }
+        .section-card {
+          padding: 16px 6px;
+        }
+        .job-card {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="landing-header">
+      <div class="logo-main">س</div>
+      <div class="landing-title">سند — منصة مشاركة الوظائف</div>
+      <div class="landing-subtitle">
+        انشر أو ابحث عن فرص العمل بسهولة وبدون تسجيل
+      </div>
+      <div class="landing-actions">
+        <a class="btn ghost" href="#jobs">تصفح الوظائف</a>
+        <a class="btn" href="#add">أضف وظيفة جديدة</a>
+      </div>
     </div>
-  </footer>
-</body>
-</html>
 
+    <div class="section-card" id="add">
+      <div class="section-title">أضف وظيفة جديدة</div>
+      <div class="section-desc">
+        يمكن لأي شخص النشر، الوظائف تنتهي تلقائيًا بعد المدة المحددة.
+      </div>
+      <form id="jobForm">
+        <div class="form-group">
+          <label for="title">عنوان الوظيفة</label>
+          <input
+            id="title"
+            type="text"
+            placeholder="مثال: مدرس لغة إنجليزية"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">وصف الوظيفة</label>
+          <textarea
+            id="description"
+            placeholder="وصف مختصر للوظيفة، الشروط، وساعات العمل..."
+            required
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="location">الموقع (اختياري)</label>
+          <input id="location" type="text" placeholder="المدينة أو المنطقة" />
+        </div>
+        <div class="form-group">
+          <label for="expiry">مدة (أيام)</label>
+          <input id="expiry" type="number" min="1" value="2" />
+        </div>
+        <div class="form-group">
+          <label for="contact">بيانات التواصل (هاتف أو إيميل)</label>
+          <input
+            id="contact"
+            type="text"
+            placeholder="مثال: 010xxxxxxxx أو email@example.com"
+            required
+          />
+        </div>
+        <div style="display: flex; gap: 10px">
+          <button type="submit" class="btn">نشر الوظيفة</button>
+          <button type="button" id="clearBtn" class="btn ghost">
+            مسح الحقول
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="section-card jobs-list" id="jobs">
+      <div class="section-title">الوظائف المتاحة</div>
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="ابحث بالعنوان، الوصف أو الموقع"
+      />
+      <div id="jobsList"></div>
+      <div
+        id="empty"
+        style="
+          display: none;
+          text-align: center;
+          color: var(--muted);
+          margin-top: 18px;
+        "
+      >
+        لا توجد وظائف حالياً — كن أول من ينشر!
+      </div>
+    </div>
+
+    <div class="toast-wrap" id="toasts" aria-live="polite"></div>
+
+    <!-- Supabase client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
+    <script>
+      const SUPABASE_URL = "https://cbjfaewyzdzvpnntovgg.supabase.co";
+      const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNiamZhZXd5emR6dnBubnRvdmdnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3MzMxMjYsImV4cCI6MjA3MDMwOTEyNn0.f8LrmEPyR1pq7gib75mqJjSJHyFO0Zmvq_RZTIBd7aU";
+      const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+      const jobForm = document.getElementById("jobForm");
+      const jobsList = document.getElementById("jobsList");
+      const emptyEl = document.getElementById("empty");
+      const searchInput = document.getElementById("searchInput");
+      const clearBtn = document.getElementById("clearBtn");
+      const toasts = document.getElementById("toasts");
+
+      function showToast(text, timeout = 3500) {
+        const t = document.createElement("div");
+        t.className = "toast";
+        t.textContent = text;
+        toasts.appendChild(t);
+        setTimeout(() => (t.style.opacity = "1"), 20);
+        setTimeout(() => {
+          t.style.transform = "translateY(6px)";
+          t.style.opacity = "0";
+        }, timeout - 350);
+        setTimeout(() => t.remove(), timeout);
+      }
+      function escapeHtml(s) {
+        if (!s) return "";
+        return String(s)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+      function remainingText(expires_at) {
+        const now = new Date();
+        const exp = new Date(expires_at);
+        const diff = exp - now;
+        if (diff <= 0) return "انتهت";
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        if (days > 0)
+          return `متبقي ${days} يوم${days > 1 ? "ات" : ""} و ${hours} ساعة`;
+        if (hours > 0) return `متبقي ${hours} ساعة`;
+        const mins = Math.ceil(diff / (1000 * 60));
+        return `متبقي ${mins} دقيقة`;
+      }
+      async function loadJobs(keyword = "") {
+        jobsList.innerHTML = "";
+        emptyEl.style.display = "none";
+        let { data, error } = await supabase
+          .from("jobs")
+          .select("*")
+          .gt("expires_at", new Date().toISOString())
+          .order("created_at", { ascending: false });
+        if (error) {
+          console.error(error);
+          showToast("حدث خطأ أثناء جلب الوظائف");
+          return;
+        }
+        let list = data || [];
+        const q = (keyword || "").trim().toLowerCase();
+        if (q) {
+          list = list.filter(
+            (j) =>
+              (j.title || "").toLowerCase().includes(q) ||
+              (j.description || "").toLowerCase().includes(q) ||
+              (j.location || "").toLowerCase().includes(q)
+          );
+        }
+        if (!list.length) {
+          emptyEl.style.display = "block";
+          return;
+        }
+        list.forEach((job) => {
+          const container = document.createElement("div");
+          container.className = "job-card";
+          const avatar = document.createElement("div");
+          avatar.className = "avatar-icon";
+          avatar.textContent = (job.title || "").slice(0, 1);
+          const info = document.createElement("div");
+          info.className = "job-info";
+          const title = document.createElement("div");
+          title.className = "job-title";
+          title.innerHTML = escapeHtml(job.title || "");
+          const desc = document.createElement("div");
+          desc.className = "job-meta";
+          desc.innerHTML = escapeHtml(job.description || "");
+          const metaLine = document.createElement("div");
+          metaLine.className = "job-meta";
+          const loc = job.location
+            ? `<span class="pill">📍 ${escapeHtml(job.location)}</span>`
+            : "";
+          const remain = `<span style="margin-left:8px;color:var(--muted)">${escapeHtml(
+            remainingText(job.expires_at)
+          )}</span>`;
+          metaLine.innerHTML = `${loc} ${remain}`;
+          const contact = document.createElement("div");
+          contact.className = "job-actions";
+          const contactVal = (job.contact || "").trim();
+          if (contactVal) {
+            if (contactVal.includes("@")) {
+              const mail = document.createElement("a");
+              mail.className = "btn ghost";
+              mail.href = `mailto:${encodeURIComponent(contactVal)}`;
+              mail.textContent = "راسل عبر الإيميل";
+              contact.appendChild(mail);
+            } else {
+              const tel = document.createElement("a");
+              tel.className = "btn ghost";
+              tel.href = `tel:${encodeURIComponent(contactVal)}`;
+              tel.textContent = "اتصل مباشرة";
+              contact.appendChild(tel);
+            }
+          }
+          info.appendChild(title);
+          info.appendChild(desc);
+          info.appendChild(metaLine);
+          info.appendChild(contact);
+          container.appendChild(avatar);
+          container.appendChild(info);
+          jobsList.appendChild(container);
+        });
+      }
+      jobForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const title = document.getElementById('title').value.trim();
+  const description = document.getElementById('description').value.trim();
+  const location = document.getElementById('location').value.trim() || null;
+  const contact = document.getElementById('contact').value.trim();
+  let days = parseInt(document.getElementById('expiry').value, 10); if(!days || days < 1) days = 2;
+  if(!title || !description || !contact){ showToast('من فضلك املأ الحقول المطلوبة'); return; }
+  const expires_at = new Date(); expires_at.setDate(expires_at.getDate() + days);
+  const { error } = await supabase
+    .from('jobs')
+    .insert([{ title, description, location, contact, expires_at }]);
+  if(error){ console.error(error); showToast('تعذر نشر الوظيفة'); return; }
+  showToast('تم نشر الوظيفة بنجاح ✅');
+  jobForm.reset(); document.getElementById('expiry').value = 2;
+  await loadJobs();
+  location.hash = '#jobs';
+});
+      clearBtn.addEventListener("click", () => {
+        jobForm.reset();
+        document.getElementById("expiry").value = 2;
+        showToast("الحقول تم مسحها");
+      });
+      let searchTimer = null;
+      searchInput.addEventListener("input", (e) => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => loadJobs(e.target.value), 320);
+      });
+      (async function init() {
+        await loadJobs();
+        try {
+          supabase
+            .channel("jobs-ch")
+            .on(
+              "postgres_changes",
+              { event: "*", schema: "public", table: "jobs" },
+              (payload) => {
+                loadJobs(searchInput.value || "");
+              }
+            )
+            .subscribe();
+        } catch (e) {
+          /* ignore */
+        }
+      })();
+    </script>
+
+    <footer
+      style="
+        margin: 40px auto 0 auto;
+        text-align: center;
+        color: #64748b;
+        font-size: 1rem;
+        font-family: 'Alexandria', sans-serif;
+      "
+    >
+      <div style="padding: 18px 0">
+        تم تطوير الموقع بواسطة <b style="color: #2563eb"> محمد خاطر</b> &mdash;
+        جميع الحقوق محفوظة &copy; 2025
+        <br />
+        <a
+          href="https://www.facebook.com/Xravoz"
+          style="color: #60a5fa; text-decoration: none; margin-right: 8px"
+          >تواصل مع المطور</a
+        >
+      </div>
+    </footer>
+  </body>
+</html>
